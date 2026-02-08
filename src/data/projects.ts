@@ -5,6 +5,8 @@ export interface Project {
     description: string;
     year?: number;
     gradient: string;
+    link?: string;
+    slug?: string;
 }
 
 export const projects: Project[] = [
@@ -15,6 +17,7 @@ export const projects: Project[] = [
         description: 'API Gateway de Inteligencia Artificial Assincrono Muilti-Agente, capaz de processar requisições de forma assíncrona e distribuída, com suporte a múltiplos modelos de IA.',
         year: 2026,
         gradient: 'from-violet-500 to-indigo-600',
+        slug: 'data-system-ai',
     },
     {
         title: 'Chatbot Text-To-SQL',
@@ -31,6 +34,7 @@ export const projects: Project[] = [
         description: 'Bot que usa IA para monitorar e resumir notícias do Big Brother Brasil em tempo real.',
         year: 2026,
         gradient: 'from-pink-500 to-rose-600',
+        link: 'https://bbbresumeai.com.br',
     },
     {
         title: 'Insights com IA em Relatórios',
@@ -70,5 +74,6 @@ export const projects: Project[] = [
         tag: 'Web Tool',
         description: 'Ferramenta para cálculo preciso de magnitude de terremotos (Escala Richter).',
         gradient: 'from-orange-500 to-red-600',
+        link: 'https://calcularmagnitude.com.br',
     },
 ];

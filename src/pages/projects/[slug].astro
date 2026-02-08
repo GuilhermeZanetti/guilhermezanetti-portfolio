@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects
+    .filter((project) => !!project.slug)
+    .map((project) => ({
+      params: { slug: project.slug },
+      props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout title={`${project.title} | Guilherme Zanetti`}>
+  <main class="min-h-screen pt-24 pb-12 px-6">
+    <div class="max-w-4xl mx-auto">
+      {/* Back Button */}
+      <a 
+        href="/" 
+        class="inline-flex items-center gap-2 text-slate-400 hover:text-indigo-400 transition-colors mb-8 group"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform">
+          <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+        </svg>
+        Voltar para Home
+      </a>
+
+      {/* Hero Header */}
+      <div class="space-y-6 mb-12">
+        <div class="flex items-center gap-3">
+          <span class="text-sm font-semibold px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            {project.tag}
+          </span>
+          {project.year && <span class="text-slate-500">{project.year}</span>}
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-bold text-slate-100 bg-clip-text text-transparent bg-gradient-to-r from-slate-100 to-slate-400">
+          {project.title}
+        </h1>
+
+        <div class="flex flex-wrap gap-2">
+            {project.stack.split(',').map((tech) => (
+                <span class="px-3 py-1 bg-slate-800 text-slate-300 rounded-md text-sm border border-slate-700">
+                    {tech.trim()}
+                </span>
+            ))}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <article class="prose prose-invert prose-lg max-w-none prose-headings:text-indigo-300 prose-a:text-indigo-400 hover:prose-a:text-indigo-300">
+        <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 mb-12">
+            <p class="text-slate-300 leading-relaxed text-lg">
+                {project.description}
+            </p>
+            
+            {/* Context placeholder since we don't have distinct detail content yet */}
+            <div class="mt-8 p-6 bg-slate-950/50 rounded-xl border border-dashed border-slate-800">
+                <p class="text-slate-500 italic text-center">
+                    Mais detalhes, capturas de tela e documentação técnica serão adicionados em breve.
+                </p>
+            </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+</Layout>

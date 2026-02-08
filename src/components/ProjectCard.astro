@@ -9,45 +9,64 @@ interface Props {
 const { project, index } = Astro.props;
 ---
 
-<article 
-  class="group relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 animate-slide-up"
-  style={`animation-delay: ${index * 0.1}s`}
->
-  <!-- Gradient Accent -->
-  <div class={`absolute top-0 left-0 w-full h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+{/* 
+  Variable decision logic:
+  If project.link exists -> href=project.link, target="_blank"
+  If project.slug exists -> href=`/projects/${project.slug}`, target="_self"
+  Else -> no href (static card)
+*/}
+{(() => {
+  const href = project.link || (project.slug ? `/projects/${project.slug}` : undefined);
+  const target = project.link ? "_blank" : "_self";
+  const Element = href ? 'a' : 'div';
   
-  <!-- Tag -->
-  <div class="flex items-center gap-2 mb-4">
-    <span class="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-      {project.tag}
-    </span>
-    {project.year && (
-      <span class="text-xs text-slate-500">
-        {project.year}
-      </span>
-    )}
-  </div>
-  
-  <!-- Title -->
-  <h3 class="text-xl font-bold text-slate-100 mb-3 group-hover:text-indigo-400 transition-colors">
-    {project.title}
-  </h3>
-  
-  <!-- Stack -->
-  <p class="text-sm font-medium text-indigo-400 mb-3">
-    {project.stack}
-  </p>
-  
-  <!-- Description -->
-  <p class="text-slate-400 text-sm leading-relaxed">
-    {project.description}
-  </p>
-  
-  <!-- Hover Effect Indicator -->
-  <div class="mt-4 flex items-center gap-2 text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-    <span class="text-sm font-medium">Ver detalhes</span>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-    </svg>
-  </div>
-</article>
+  return (
+    <Element 
+      href={href}
+      target={href ? target : undefined}
+      rel={project.link ? "noopener noreferrer" : undefined}
+      class="group relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 animate-slide-up block"
+      style={`animation-delay: ${index * 0.1}s`}
+    >
+      <!-- Gradient Accent -->
+      <div class={`absolute top-0 left-0 w-full h-1 rounded-t-2xl bg-gradient-to-r ${project.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+      
+      <!-- Tag -->
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+          {project.tag}
+        </span>
+        {project.year && (
+          <span class="text-xs text-slate-500">
+            {project.year}
+          </span>
+        )}
+      </div>
+      
+      <!-- Title -->
+      <h3 class="text-xl font-bold text-slate-100 mb-3 group-hover:text-indigo-400 transition-colors">
+        {project.title}
+      </h3>
+      
+      <!-- Stack -->
+      <p class="text-sm font-medium text-indigo-400 mb-3">
+        {project.stack}
+      </p>
+      
+      <!-- Description -->
+      <p class="text-slate-400 text-sm leading-relaxed">
+        {project.description}
+      </p>
+      
+      <!-- Hover Effect Indicator -->
+      {href && (
+        <div class="mt-4 flex items-center gap-2 text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="text-sm font-medium">Ver detalhes</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </div>
+      )}
+    </Element>
+  );
+})()}
