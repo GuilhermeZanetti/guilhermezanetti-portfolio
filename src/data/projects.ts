@@ -7,6 +7,9 @@ export interface Project {
     gradient: string;
     link?: string;
     slug?: string;
+    repository?: string;
+    gallery?: string[];
+    pdf?: string;
 }
 
 export const projects: Project[] = [
@@ -51,6 +54,14 @@ export const projects: Project[] = [
         description: 'API para avaliação de código em Python usando os compiladores nativos de cada linguagem.',
         year: 2025,
         gradient: 'from-blue-500 to-indigo-600',
+        slug: 'code-judge',
+        repository: 'https://github.com/GuilhermeZanetti/tcc_api',
+        gallery: [
+            '/projects/code-judge/cover.png',
+            '/projects/code-judge/diagram.png',
+            '/projects/code-judge/results.png'
+        ],
+        pdf: '/projects/code-judge/presentation.pdf'
     },
     {
         title: 'Smart BBQ Controller (App)',
