@@ -82,9 +82,10 @@ export const projects: Project[] = [
     },
     {
         title: 'Calculadora de Magnitude Richter',
-        stack: 'JavaScript, HTML',
+        stack: 'JavaScript, HTML, CSS',
         tag: 'Web Tool',
         description: 'Ferramenta para cálculo preciso de magnitude de terremotos (Escala Richter).',
+        year: 2021,
         gradient: 'from-orange-500 to-red-600',
         link: 'https://calcularmagnitude.com.br',
     },
