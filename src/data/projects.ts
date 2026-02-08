@@ -59,6 +59,7 @@ export const projects: Project[] = [
         description: 'Aplicativo para controle de grill giratórios, levantamento de grelha e acendimento de churrasqueiras automatizadas.',
         year: 2024,
         gradient: 'from-indigo-500 to-purple-600',
+        link: 'https://play.google.com/store/apps/details?id=com.poligrill&hl=ln&pli=1',
     },
     {
         title: 'Smart BBQ Server (IoT)',
